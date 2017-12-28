@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.vaadin.external.streamhtmlparser</groupId>
+    <artifactId>streamhtmlparser-jsilver</artifactId>
+    <version>0.0.10.vaadin1</version>
+    <name>Java Stream HTML Parser from JSilver</name>
+    <organization>
+        <name>Google</name>
+        <url>http://www.google.com</url>
+    </organization>
+    <url>https://code.google.com/p/jsilver/</url>
+    <description>
+      JSilver is a pure-Java implementation of Clearsilver. 
+      This package includes only the streamhtmlparser part.
+    </description>
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:svn:http://jsilver.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:http://jsilver.googlecode.com/svn/trunk/</developerConnection>
+        <url>https://code.google.com/p/jsilver/source/browse/</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>id</id>
+            <name>JSilver Dev</name>
+            <email>jsilverdev</email>
+            <url>https://code.google.com/p/jsilver/</url>
+            <organization>Google</organization>
+            <organizationUrl>http://www.google.com</organizationUrl>
+            <timezone>0</timezone>
+        </developer>
+    </developers>
+    <distributionManagement>
+        <repository>
+            <id>vaadin-releases</id>
+            <name>Vaadin release repository</name>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>vaadin-snapshots</id>
+            <name>Vaadin snapshot repository</name>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>vaadin-snapshots</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>vaadin-releases</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>

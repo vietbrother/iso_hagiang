@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-testbench-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>4.0.3</version>
+    <name>Vaadin TestBench parent</name>
+
+    <organization>
+        <name>Vaadin Ltd</name>
+        <url>http://vaadin.com/</url>
+    </organization>
+    <url>http://vaadin.com/</url>
+    <issueManagement>
+        <system>trac</system>
+        <url>http://dev.vaadin.com/</url>
+    </issueManagement>
+    <developers>
+        <developer>
+            <name>Jonatan Kronqvist</name>
+            <id>jonatan</id>
+            <email>jonatan at vaadin.com</email>
+            <organization>Vaadin Ltd</organization>
+            <timezone>+2</timezone>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>Commercial Vaadin Add-On License version 3.0</name>
+            <url>http://vaadin.com/license/cval-3</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+
+     <distributionManagement>
+         <repository>
+             <id>vaadin-addons</id>
+             <name>Vaadin add-ons repository</name>
+             <url>http://vaadin.com/nexus/content/repositories/vaadin-addons</url>
+         </repository>
+     </distributionManagement>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <vaadin.version>7.4.8</vaadin.version>
+    </properties>
+    <modules>
+        <module>vaadin-testbench</module>
+        <module>vaadin-testbench-core</module>
+        <module>vaadin-testbench-standalone</module>
+        <module>vaadin-testbench-assembly</module>
+        <module>testbench-integration-tests</module>
+        <module>vaadin-testbench-api</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

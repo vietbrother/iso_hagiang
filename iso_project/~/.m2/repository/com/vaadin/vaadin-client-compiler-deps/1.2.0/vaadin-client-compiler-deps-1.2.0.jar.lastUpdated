@@ -1,0 +1,12 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Wed Sep 13 16:59:08 ICT 2017
+https\://oss.sonatype.org/content/repositories/vaadin-releases/.lastUpdated=1505296748721
+https\://oss.sonatype.org/content/repositories/vaadin/.error=
+http\://maven.vaadin.com/vaadin-addons/.error=
+default-http\://repo.maven.apache.org/maven2/.lastUpdated=1505296744852
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact com.vaadin\:vaadin-client-compiler-deps\:jar\:1.2.0 from/to central (http\://repo.maven.apache.org/maven2)\: GET request of\: com/vaadin/vaadin-client-compiler-deps/1.2.0/vaadin-client-compiler-deps-1.2.0.jar from central failed
+https\://oss.sonatype.org/content/repositories/vaadin/.lastUpdated=1505294340042
+https\://maven.vaadin.com/vaadin-prereleases/.lastUpdated=1505294368934
+https\://oss.sonatype.org/content/repositories/vaadin-releases/.error=
+http\://maven.vaadin.com/vaadin-addons/.lastUpdated=1505294302350
+https\://maven.vaadin.com/vaadin-prereleases/.error=

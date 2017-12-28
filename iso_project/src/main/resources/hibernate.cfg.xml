@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"/>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/iso</property>
+    <property name="hibernate.connection.characterEncoding">utf-8</property>
+    <property name="hibernate.connection.useUnicode">true</property>
+    <property name="hibernate.connection.charSet">UTF-8</property>
+    <property name="format_sql">true</property>
+    <property name="show_sql">true</property>
+    <property name="connection.pool_size">20</property>
+    <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+    <property name="hibernate.c3p0.min_size">1</property>
+    <property name="hibernate.c3p0.max_size">20</property>
+    <property name="hibernate.c3p0.max_statements">100</property>
+    <property name="hibernate.c3p0.acquire_increment">1</property>
+    <!-- new values for fixing the DB issues with Jboss7 -->
+    <property name="hibernate.c3p0.idle_test_period">0</property>
+    <property name="hibernate.c3p0.timeout">1000</property>
+    <!-- new properties that fix the DB issues we have in Jboss 7 -->
+    <!--<property name="hibernate.c3p0.unreturnedConnectionTimeout">400</property>-->
+    <!--<property name="hibernate.c3p0.debugUnreturnedConnectionStackTraces">true</property>-->
+    <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+    <!--        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.id.new_generator_mappings">false</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>-->
+    <!-- here all entities will come -->
+    <mapping class="com.iso.dashboard.dto.Student"/>
+    <!--<mapping class="com.iso.dashboard.dto.User"/>-->
+    <!--<mapping class="com.iso.dashboard.dto.Users"/>-->
+    <mapping class="com.iso.dashboard.dto.Organization"/>
+    <mapping class="com.iso.dashboard.dto.CCalendar"/>
+    <mapping class="com.iso.dashboard.dto.CColorDefined"/>
+    <mapping class="com.iso.dashboard.dto.CTask"/>
+    <mapping class="com.iso.dashboard.dto.CTaskAttachment"/>
+    <mapping class="com.iso.dashboard.dto.CTaskGroup"/>
+    <mapping class="com.iso.dashboard.dto.CTaskReview"/>
+    <mapping class="com.iso.dashboard.dto.CTaskAssignee"/>
+    <mapping class="com.iso.dashboard.dto.CTaskPriority"/>
+    <mapping class="com.iso.dashboard.dto.CTaskHistory"/>
+    <mapping class="com.iso.dashboard.dto.SecurityLevel"/>
+    <mapping class="com.iso.dashboard.dto.FileLevel"/>
+    <mapping class="com.iso.dashboard.dto.DocumentDTO"/>
+        <mapping class="com.iso.dashboard.dto.Job"/>
+        <mapping class="com.iso.dashboard.dto.EmployeeType"/>
+        <mapping class="com.iso.dashboard.dto.Employee"/>
+        <mapping class="com.iso.dashboard.dto.EmployeeProcess"/>
+        <mapping class="com.iso.dashboard.dto.EmployeeEducation"/>
+        <mapping class="com.iso.dashboard.dto.Education"/>
+        <mapping class="com.iso.dashboard.dto.EmployeeReward"/>
+        <mapping class="com.iso.dashboard.dto.AssetType"/>
+        <mapping class="com.iso.dashboard.dto.AssetClass"/>
+        <mapping class="com.iso.dashboard.dto.AssetGroup"/>
+        <mapping class="com.iso.dashboard.dto.Asset"/>
+        <mapping class="com.iso.dashboard.dto.CUnit"/>
+        <mapping class="com.iso.dashboard.dto.Provider"/>
+        <mapping class="com.iso.dashboard.dto.CProcessGuide"/>
+        <mapping class="com.iso.dashboard.dto.CStep"/>
+        <mapping class="com.iso.dashboard.dto.CFlow"/>
+        <mapping class="com.iso.dashboard.dto.CField"/>
+        <mapping class="com.iso.dashboard.dto.CProcedure"/>
+        <mapping class="com.iso.dashboard.dto.MFlowProcedure"/>
+        <mapping class="com.iso.dashboard.dto.MFlowStep"/>
+        <mapping class="com.iso.dashboard.dto.MProcedureDocument"/>
+        <mapping class="com.iso.dashboard.dto.PProcessFile"/>
+        <mapping class="com.iso.dashboard.dto.PProcess"/>
+        <mapping class="com.iso.dashboard.dto.PProcessFile"/>
+        <mapping class="com.iso.dashboard.dto.PProcessHis"/>
+        <mapping class="com.iso.dashboard.dto.CMenu"/>
+        <mapping class="com.iso.dashboard.dto.MUserMenu"/>
+  </session-factory>
+</hibernate-configuration>
+<!--<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibnatedb</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+        <property name="show_sql">true</property> 
+        <property name="connection.pool_size">1</property>
+         
+        <mapping class="com.hib.entities.Student"></mapping>
+ 
+    </session-factory>
+</hibernate-configuration>-->

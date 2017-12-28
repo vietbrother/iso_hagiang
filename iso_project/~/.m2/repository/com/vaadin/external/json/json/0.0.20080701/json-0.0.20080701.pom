@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.vaadin.external.json</groupId>
+    <artifactId>json</artifactId>
+    <version>0.0.20080701</version>
+    <name>JSON (JavaScript Object Notation)</name>
+    <description>JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.</description>
+    <url>http://www.json.org/java/index.html</url>
+    <organization>
+        <name>JSON</name>
+        <url>http://json.org/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>JSON License</name>
+            <distribution>repo</distribution>
+            <url>http://www.json.org/license.html</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:https:https://github.com/douglascrockford/JSON-java</connection>
+        <developerConnection>scm:https:https://github.com/douglascrockford/JSON-java</developerConnection>
+        <url>https://github.com/douglascrockford/JSON-java</url>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>vaadin-releases</id>
+            <name>Vaadin release repository</name>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>vaadin-snapshots</id>
+            <name>Vaadin snapshot repository</name>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <developers>
+        <developer>
+            <id>douglascrockford</id>
+            <name>Douglas Crockford</name>
+        </developer>
+    </developers>
+    <repositories>
+        <repository>
+            <id>vaadin-snapshots</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>vaadin-releases</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>

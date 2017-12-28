@@ -1,0 +1,198 @@
+@import "../valo/valo";
+@import "common";
+@import "views/login";
+@import "views/dashboardview";
+@import "views/schedule";
+@import "views/sales";
+@import "views/transactions";
+@import "views/reports";
+
+// Optimize the CSS output
+/*$v-included-components: remove($v-included-components, accordion);*/
+/*$v-included-components: remove($v-included-components, colorpicker);*/
+/*$v-included-components: remove($v-included-components, popupview);*/
+/*$v-included-components: remove($v-included-components, progressbar);*/
+/*$v-included-components: remove($v-included-components, slider);*/
+/*$v-included-components: remove($v-included-components, splitpanel);*/
+/*$v-included-components: remove($v-included-components, table);*/
+/*$v-included-components: remove($v-included-components, tree);*/
+/*$v-included-components: remove($v-included-components, treetable);*/
+/*$v-included-components: remove($v-included-components, twincolselect);*/
+
+// Main layout padding
+$view-padding: round($v-unit-size / 1.5) !default;
+
+// Slight adjustment to menu background-color
+$valo-menu-background-color: #414B56;
+
+@mixin dashboard {
+    @include valo;
+    @include dashboard-common;
+    @include dashboard-login-view;
+    @include dashboard-dashboard-view;
+    @include dashboard-schedule-view;
+    @include dashboard-sales-view;
+    @include dashboard-transactions-view;
+    @include dashboard-reports-view;
+}
+
+.v-tabsheet-icons-on-top  > .v-tabsheet-tabcontainer .v-caption {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1.8;
+}    
+.v-tabsheet-tabcontainer {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 2%;
+}
+
+/* --------- boolean renderer --------- */
+.v-icon.v-grid-cell-boolean {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.v-grid-cell-boolean.boolean-true:before {
+    content: "\f14a";
+}
+.v-grid-cell-boolean.boolean-false:before {
+    content: "\f00d";
+}
+.v-grid-cell-boolean.boolean-null:before {
+    content: "\f096";
+}
+
+.v-grid-row .v-grid-cell center, .v-grid-row .v-grid-cell .v-icon.v-grid-cell-boolean {
+    line-height: inherit;
+}
+
+
+/* --------- button value renderer --------- */
+.v-button-value-cell {
+    clear: both;
+    position: relative;
+    width: 100%;
+}
+.v-button-value-cell .v-button-bar {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    display: inline-block;
+    text-align: center;
+}
+.v-button-value-cell .v-button-bar button {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    font-family: FontAwesome !important;
+    font-style: normal;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 2px;
+}
+.v-button-value-cell .v-button-bar button.v-view span:before {
+    content:  "\f06e";
+}
+.v-button-value-cell .v-button-bar button.v-edit span:before {
+    content:  "\f040";
+}
+.v-button-value-cell .v-button-bar button.v-delete span:before {
+    content: "\f014";
+}
+.v-button-value-cell .v-button-bar button.v-assign span:before {
+    content: "\f234";
+}
+.v-button-value-cell .v-button-bar button.v-report span:before {
+    content: "\f15c";
+}
+.v-button-value-cell .v-cell-value {
+    padding-left: 32px;
+}
+.v-button-value-cell.two-buttons .v-cell-value {
+    padding-left: 65px;
+}
+.v-button-value-cell.three-buttons .v-cell-value {
+    padding-left: 98px;
+}
+.v-button-value-cell.four-buttons .v-cell-value {
+    padding-left: 131px;
+}
+.v-button-value-cell.five-buttons .v-cell-value {
+    padding-left: 164px;
+}
+
+/* fix for reindeer theme */
+.reindeer .v-button-value-cell .v-button-bar button {
+    width: 20px;
+    height: 20px;
+}
+.reindeer .v-button-value-cell .v-cell-value {
+    padding-left: 22px;
+}
+.reindeer .v-button-value-cell.two-buttons .v-cell-value {
+    padding-left: 45px;
+}
+.reindeer .v-button-value-cell.three-buttons .v-cell-value {
+    padding-left: 68px;
+}
+.reindeer .v-button-value-cell.four-buttons .v-cell-value {
+    padding-left: 91px;
+}
+.reindeer .v-button-value-cell.five-buttons .v-cell-value {
+    padding-left: 114px;
+}
+.reindeer .v-button-bar button span {
+    margin: 0 0 0 -3px;
+}
+
+
+/* --------- grid cell alignment --------- */
+.v-grid-cell.centeralign {
+    text-align: center;
+}
+.v-grid-cell.rightalign {
+    text-align: right;
+}
+
+/* --------- indicator styling --------- */
+.v-grid-cell-indicator {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+.v-grid-row .v-grid-cell .v-grid-cell-indicator {
+    line-height: inherit;
+}
+.v-grid-cell-indicator span.green {
+    color: green;
+}
+.v-grid-cell-indicator span.red {
+    color: red;
+}
+.v-grid-cell-indicator span.black {
+    color: black;
+}
+.v-grid-cell-indicator span.na {
+    color: yellow;
+}
+
+
+/* --------- reindeer theme --------- */
+.reindeer.v-app .filter-header input.v-textfield.v-widget.tiny,
+.reindeer.v-app .filter-header .v-datefield-gridcellfilter.tiny .v-textfield,
+.reindeer.v-app .filter-header .v-datefield-gridcellfilter.tiny .v-datefield-button,
+.reindeer.v-app .filter-header .v-filterselect.tiny,
+.reindeer.v-app .filter-header input.v-filterselect-input {
+    height: 19px;
+}
+

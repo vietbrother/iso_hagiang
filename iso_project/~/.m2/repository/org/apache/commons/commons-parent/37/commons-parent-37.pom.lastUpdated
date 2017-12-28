@@ -1,0 +1,9 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Wed Sep 13 16:10:20 ICT 2017
+http\://repo.maven.apache.org/maven2/.lastUpdated=1505293820374
+https\://maven.vaadin.com/vaadin-prereleases/.error=
+http\://maven.vaadin.com/vaadin-addons/.error=
+http\://maven.vaadin.com/vaadin-addons/.lastUpdated=1505293803023
+default-https\://oss.sonatype.org/content/repositories/vaadin/.lastUpdated=1505293814142
+https\://maven.vaadin.com/vaadin-prereleases/.lastUpdated=1505293814974
+https\://oss.sonatype.org/content/repositories/vaadin/.error=Could not transfer artifact org.apache.commons\:commons-parent\:pom\:37 from/to sonatype vaadin (https\://oss.sonatype.org/content/repositories/vaadin/)\: This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server (oss.sonatype.org)
