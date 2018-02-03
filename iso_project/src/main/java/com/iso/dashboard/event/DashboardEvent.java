@@ -37,6 +37,20 @@ public abstract class DashboardEvent {
     }
 
     public static class NotificationsCountUpdatedEvent {
+        private int count;
+
+        public NotificationsCountUpdatedEvent(int count) {
+            this.count = count;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+        
     }
 
     public static final class ReportsCountUpdatedEvent {

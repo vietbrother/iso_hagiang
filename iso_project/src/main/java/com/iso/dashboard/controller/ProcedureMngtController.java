@@ -434,6 +434,7 @@ public class ProcedureMngtController {
             ui.getCkEditorTextField().setValue(dto.getContent() == null ? "" : dto.getContent());
             ui.getTxtCost().setValue(dto.getCost() == null ? "" : dto.getCost());
             ui.getTxtLevel().setValue(dto.getLevel() == null ? "" : dto.getLevel());
+            ui.getTxtProcessTime().setValue(dto.getProcessTime()== null ? "" : dto.getProcessTime());
 
             if (dto.getOrgId() != 0) {
                 Organization org = OrganizationMngService.getInstance().getOrganizationById(String.valueOf(dto.getOrgId()));

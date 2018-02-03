@@ -77,8 +77,8 @@ public class TaskPersonalMngtController {
                 });
             }
         }
-        initTable(TaskOrgMngService.getInstance().getTasksByName(view.getTxtTaskName().getValue(), 
-                    user.getDepartment() != null ? String.valueOf(user.getDepartment().getId()) : null));
+        initTable(TaskOrgMngService.getInstance().getTasksByName(view.getTxtTaskName().getValue(),
+                user.getDepartment() != null ? String.valueOf(user.getDepartment().getId()) : null));
         doAction();
     }
 
@@ -99,12 +99,12 @@ public class TaskPersonalMngtController {
                         BundleUtils.getString("message.warning.content"),
                         BundleUtils.getString("common.confirmDelete.yes"),
                         BundleUtils.getString("common.confirmDelete.no"), (ConfirmDialog dialog) -> {
-                    if (dialog.isConfirmed()) {
-                        CTask cTask = (CTask) obj;
-                        TaskOrgMngService.getInstance().removeTaskOrg(String.valueOf(cTask.getTaskId()));
-                        view.getBtnSearch().click();
-                    }
-                });
+                            if (dialog.isConfirmed()) {
+                                CTask cTask = (CTask) obj;
+                                TaskOrgMngService.getInstance().removeTaskOrg(String.valueOf(cTask.getTaskId()));
+                                view.getBtnSearch().click();
+                            }
+                        });
                 d.setStyleName(Reindeer.WINDOW_LIGHT);
                 d.setContentMode(ConfirmDialog.ContentMode.HTML);
                 d.getOkButton().setIcon(ISOIcons.SAVE);
@@ -174,8 +174,7 @@ public class TaskPersonalMngtController {
                 return String.class;
             }
         });
-        
-        
+
         pagedTable.getColumn("name").setMinimumWidth(130);
         pagedTable.getColumn("startTime").setMinimumWidth(160);
         pagedTable.getColumn("endTime").setMinimumWidth(160);
@@ -184,6 +183,14 @@ public class TaskPersonalMngtController {
     }
 
     public IndexedContainer createContainer(List<CTask> cTasks) {
+        List<Integer> lstTaskId = new ArrayList<>();
+        List<CTaskAssignee> lstAssignees = TaskAssigneeService.getInstance().listTaskAssignee(null, String.valueOf(user.getId()));
+        if (lstAssignees != null && !lstAssignees.isEmpty()) {
+            lstAssignees.stream().forEach((assignee) -> {
+                lstTaskId.add(assignee.getId().getTaskId());
+            });
+        }
+
         IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("name", String.class, null);
         container.addContainerProperty("startTime", String.class, null);
@@ -195,7 +202,7 @@ public class TaskPersonalMngtController {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (CTask u : cTasks) {
             if (!lstTaskId.contains(u.getTaskId())) {
-                break;
+                continue;
             }
             Item item = container.addItem(u);
             item.getItemProperty("name").setValue(u.getTaskName() != null ? u.getTaskName() : "");
@@ -246,7 +253,7 @@ public class TaskPersonalMngtController {
         });
 
         view.getBtnSearch().addClickListener((Button.ClickEvent event) -> {
-            reloadData(TaskOrgMngService.getInstance().getTasksByName(view.getTxtTaskName().getValue(), 
+            reloadData(TaskOrgMngService.getInstance().getTasksByName(view.getTxtTaskName().getValue(),
                     user.getDepartment() != null ? String.valueOf(user.getDepartment().getId()) : null));
         });
     }
@@ -267,45 +274,45 @@ public class TaskPersonalMngtController {
                         BundleUtils.getString("message.warning.content"),
                         BundleUtils.getString("common.confirmDelete.yes"),
                         BundleUtils.getString("common.confirmDelete.no"), (ConfirmDialog dialog) -> {
-                    if (dialog.isConfirmed()) {
-                        // Confirmed to continue
-                        ResultDTO res = null;
-                        List<CTaskAttachment> attachments = new ArrayList<>();
-                        getDataFromUI(ui, dto, departmentId, attachments);
-                        if (isInsert) {
-                            res = TaskOrgMngService.getInstance().addTaskOrg(dto);
-                            String taskId = res.getId();
-                            if (taskId != null && !"".equals(taskId)) {
-                                attachments.forEach((attachment) -> {
-                                    CTaskAttachmentPK attachmentPK = new CTaskAttachmentPK();
-                                    attachmentPK.setTaskId(Integer.valueOf(taskId));
-                                    attachmentPK.setAttachmentType(Constants.ATTACHMENT_TYPE_TASK);
-                                    attachment.setId(attachmentPK);
-                                    TaskAttachmentService.getInstance().addTaskAttachment(attachment);
-                                });
+                            if (dialog.isConfirmed()) {
+                                // Confirmed to continue
+                                ResultDTO res = null;
+                                List<CTaskAttachment> attachments = new ArrayList<>();
+                                getDataFromUI(ui, dto, departmentId, attachments);
+                                if (isInsert) {
+                                    res = TaskOrgMngService.getInstance().addTaskOrg(dto);
+                                    String taskId = res.getId();
+                                    if (taskId != null && !"".equals(taskId)) {
+                                        attachments.forEach((attachment) -> {
+                                            CTaskAttachmentPK attachmentPK = new CTaskAttachmentPK();
+                                            attachmentPK.setTaskId(Integer.valueOf(taskId));
+                                            attachmentPK.setAttachmentType(Constants.ATTACHMENT_TYPE_TASK);
+                                            attachment.setId(attachmentPK);
+                                            TaskAttachmentService.getInstance().addTaskAttachment(attachment);
+                                        });
+                                    }
+                                    ComponentUtils.showNotification(BundleUtils.getString("common.button.add") + " " + res.getKey() + " " + res.getMessage());
+                                } else {
+                                    dto.setUpdateTime(new Date());
+                                    res = TaskOrgMngService.getInstance().updateTaskOrg(dto);
+                                    TaskAttachmentService.getInstance().deleteAttachmentsByTask(String.valueOf(dto.getTaskId()), String.valueOf(Constants.ATTACHMENT_TYPE_TASK), null);
+                                    attachments.forEach((attachment) -> {
+                                        CTaskAttachmentPK attachmentPK = new CTaskAttachmentPK();
+                                        attachmentPK.setTaskId(dto.getTaskId());
+                                        attachmentPK.setAttachmentType(Constants.ATTACHMENT_TYPE_TASK);
+                                        attachment.setId(attachmentPK);
+                                        TaskAttachmentService.getInstance().addTaskAttachment(attachment);
+                                    });
+                                    ComponentUtils.showNotification(BundleUtils.getString("common.button.update") + " "
+                                            + res.getKey() + " " + res.getMessage());
+                                }
+                                window.close();
+                                view.getBtnSearch().click();
+                            } else {
+                                Notification.show("nok");
+                                window.close();
                             }
-                            ComponentUtils.showNotification(BundleUtils.getString("common.button.add") + " " + res.getKey() + " " + res.getMessage());
-                        } else {
-                            dto.setUpdateTime(new Date());
-                            res = TaskOrgMngService.getInstance().updateTaskOrg(dto);
-                            TaskAttachmentService.getInstance().deleteAttachmentsByTask(String.valueOf(dto.getTaskId()), String.valueOf(Constants.ATTACHMENT_TYPE_TASK), null);
-                            attachments.forEach((attachment) -> {
-                                CTaskAttachmentPK attachmentPK = new CTaskAttachmentPK();
-                                attachmentPK.setTaskId(dto.getTaskId());
-                                attachmentPK.setAttachmentType(Constants.ATTACHMENT_TYPE_TASK);
-                                attachment.setId(attachmentPK);
-                                TaskAttachmentService.getInstance().addTaskAttachment(attachment);
-                            });
-                            ComponentUtils.showNotification(BundleUtils.getString("common.button.update") + " "
-                                    + res.getKey() + " " + res.getMessage());
-                        }
-                        window.close();
-                        view.getBtnSearch().click();
-                    } else {
-                        Notification.show("nok");
-                        window.close();
-                    }
-                });
+                        });
                 d.setStyleName(Reindeer.LAYOUT_BLUE);
                 d.setContentMode(ConfirmDialog.ContentMode.HTML);
                 d.getOkButton().setIcon(ISOIcons.SAVE);

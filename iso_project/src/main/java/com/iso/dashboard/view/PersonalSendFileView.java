@@ -49,6 +49,7 @@ public class PersonalSendFileView extends Panel implements View {
         setSizeFull();
 
         VerticalLayout root = new VerticalLayout();
+        root.setCaption(BundleUtils.getStringCas("menu.sendFileMngt"));
         root.setSizeFull();
         root.setSpacing(false);
         root.addStyleName("dashboard-view");

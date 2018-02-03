@@ -25,6 +25,7 @@ import com.iso.dashboard.utils.BundleUtils;
 import com.iso.dashboard.utils.ComponentUtils;
 import com.iso.dashboard.utils.Constants;
 import com.iso.dashboard.utils.DataUtil;
+import com.iso.dashboard.utils.DateUtil;
 import com.iso.dashboard.utils.ISOIcons;
 import com.iso.dashboard.utils.UploaderCustom;
 import com.iso.dashboard.view.PersonalSendFileView;
@@ -383,13 +384,13 @@ public class PersonalSendFileController {
 
                         Notification.show(BundleUtils.getString("process.action.2.sendFile") + " "
                                 + BundleUtils.getString("common.success"));
-                        
+
                         window.close();
                     } else {
                         his.setResult(Constants.FAIL);
                         his.setDescription(res != null ? res.getMessage() : Constants.FAIL);
                         Notification.show(BundleUtils.getString("process.action.2.sendFile") + " "
-                            + BundleUtils.getString("common.error"));;
+                                + BundleUtils.getString("common.error"));;
                     }
                 }
             }
@@ -402,14 +403,18 @@ public class PersonalSendFileController {
     }
 
     public void createProcessDTO(PersonalSendFileMngtUI ui, PProcess processDto) {
-        processDto.setCode(user.getUserName() == null ? "admin" : user.getUserName());
-        processDto.setCreateBy(user.getUserName() == null ? "admin" : user.getUserName());
+        String createBy = user.getUserName() == null ? "admin" : user.getUserName();
+        processDto.setCode(ui.getProcedureDTO().getCode() + "_"
+                + DateUtil.dateTime2StringNoSlash(new Date()) + "_"
+                + createBy.replace(" ", "")
+        );
+        processDto.setCreateBy(createBy);
         processDto.setCreatedTime(new Date());
         processDto.setLevel(ui.getProcedureDTO().getLevel());
         processDto.setName(user.getUserName() == null ? "admin" : user.getUserName());
         processDto.setProcedureId(ui.getProcedureDTO().getId());
         processDto.setProcedureName(ui.getProcedureDTO().getName());
-        processDto.setProgress("0");
+        processDto.setProgress(Constants.PROCESS_STATE_ID.DRAFT_STR);// "0");
         processDto.setPrice(ui.getProcedureDTO().getCost());
 
         processDto.setDescription(ui.getTxaDescription().getValue());

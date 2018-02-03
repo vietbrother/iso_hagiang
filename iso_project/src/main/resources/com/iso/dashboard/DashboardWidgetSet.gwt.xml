@@ -46,4 +46,6 @@
     <inherits name="pl.pdfviewer.PdfViewerWidgetSet" />
 
     <inherits name="pl.exsio.plupload.PluploadWidgetSet" />
+
+    
 </module>

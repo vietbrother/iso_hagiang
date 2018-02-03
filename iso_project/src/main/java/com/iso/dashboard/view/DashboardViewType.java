@@ -28,7 +28,7 @@ public enum DashboardViewType {
     TASK_GROUP_MNGT("taskGroupMngt", CataTaskGroupMngtView.class, FontAwesome.TASKS, true, false, false),
     TASK_PRIORITY_MNGT("taskPriorityMngt", CataTaskPriorityMngtView.class, FontAwesome.TASKS, true, false, false),
     TASK_ORG_MNGT("taskOrgMngt", TaskOrgMngtView.class, FontAwesome.TASKS, true, false, false),
-    TASK_PERSONAL_MNGT("taskPersonalMngt", TaskPersonalMngtView.class, FontAwesome.TASKS, true, false, false),
+    TASK_PERSONAL_MNGT("taskPersonalMngt", TaskPersonalMngtView.class, FontAwesome.TASKS, false, false, false),
     //TASK_ASIGN_MNGT("taskAsignMngt", TaskAsignMngtView.class, FontAwesome.TASKS, true, false, false),
     
     ARCHIVES_MNGT("archivesMngt", DashboardView.class, VaadinIcons.CALENDAR_BRIEFCASE, true, true, true),

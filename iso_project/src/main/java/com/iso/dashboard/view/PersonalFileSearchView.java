@@ -49,6 +49,7 @@ public class PersonalFileSearchView extends Panel implements View {
         setSizeFull();
 
         VerticalLayout root = new VerticalLayout();
+        root.setCaption(BundleUtils.getStringCas("menu.searchFileMngt"));
         root.setSizeFull();
         root.setSpacing(false);
         root.addStyleName("dashboard-view");

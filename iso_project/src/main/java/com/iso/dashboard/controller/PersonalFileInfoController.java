@@ -159,16 +159,19 @@ public class PersonalFileInfoController {
             }
         };
         pagedTable.getColumn("procedureName").setRenderer(new ButtonRenderer(nameClickListener));
+        pagedTable.getColumn("code").setRenderer(new ButtonRenderer(nameClickListener));
 
     }
 
     public IndexedContainer createContainer(List<PProcess> lstProcess) {
         IndexedContainer container = new IndexedContainer();
+        container.addContainerProperty("code", String.class, null);
         container.addContainerProperty("procedureName", String.class, null);
         container.addContainerProperty("createTime", String.class, null);
         container.addContainerProperty("level", String.class, null);
         for (PProcess u : lstProcess) {
             Item item = container.addItem(u);
+            item.getItemProperty("code").setValue(u.getCode());
             item.getItemProperty("procedureName").setValue(u.getProcedureName());
             item.getItemProperty("level").setValue(u.getLevel());
             item.getItemProperty("createTime").setValue(sp.format(u.getCreatedTime()));
@@ -252,7 +255,7 @@ public class PersonalFileInfoController {
         CProcedure procedure = ProcedureMngtService.getInstance().getProcedureById(String.valueOf(dtoProcess.getProcedureId()));
         procedure.setProcessDto(dtoProcess);
         PersonalExecuteFileMngtUI ui = new PersonalExecuteFileMngtUI(
-                BundleUtils.getString("procedureMngt.public.list.sendFile"), procedure, true);
+                BundleUtils.getString("procedureMngt.public.list.infoDetail"), procedure, true);
         Organization org = OrganizationMngService.getInstance().getOrganizationById(String.valueOf(procedure.getOrgId()));
         ui.getTxtName().setValue(procedure.getName());
         ui.getTxtLevel().setValue(procedure.getLevel());

@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import com.iso.dashboard.DashboardUI;
 import com.iso.dashboard.component.ProfilePreferencesWindow;
 import com.iso.dashboard.dto.CMenu;
+import com.iso.dashboard.dto.CTask;
 import com.iso.dashboard.dto.Employee;
 import com.iso.dashboard.dto.MUserMenu;
 import com.iso.dashboard.event.DashboardEvent.NotificationsCountUpdatedEvent;
@@ -12,6 +13,7 @@ import com.iso.dashboard.event.DashboardEvent.ProfileUpdatedEvent;
 import com.iso.dashboard.event.DashboardEvent.ReportsCountUpdatedEvent;
 import com.iso.dashboard.event.DashboardEvent.UserLoggedOutEvent;
 import com.iso.dashboard.event.DashboardEventBus;
+import com.iso.dashboard.service.TaskOrgMngService;
 import com.iso.dashboard.service.UserMenuService;
 import com.iso.dashboard.utils.BundleUtils;
 import com.vaadin.server.FontAwesome;
@@ -48,10 +50,14 @@ public final class DashboardMenu extends CustomComponent {
     public static final String ID = "dashboard-menu";
     public static final String REPORTS_BADGE_ID = "dashboard-menu-reports-badge";
     public static final String NOTIFICATIONS_BADGE_ID = "dashboard-menu-notifications-badge";
+    public static final String NOTIFICATIONS_TASK_ID = "dashboard-menu-notifications-task";
     private static final String STYLE_VISIBLE = "valo-menu-visible";
     private Label notificationsBadge;
     private Label reportsBadge;
     private MenuItem settingsItem;
+
+    private Label notificationsTask;
+    public static Employee user = (Employee) VaadinSession.getCurrent().getAttribute(Employee.class.getName());
 
     public Map<String, String> mapParentMenu;
     public Map<String, String> mapChildMenu;
@@ -63,7 +69,7 @@ public final class DashboardMenu extends CustomComponent {
         Employee user = (Employee) VaadinSession.getCurrent()
                 .getAttribute(Employee.class.getName());
         List<MUserMenu> lstMenu = UserMenuService.getInstance().listUserMenu(null, String.valueOf(user.getId()));
-        if(lstMenu != null){
+        if (lstMenu != null) {
             for (MUserMenu mUserMenu : lstMenu) {
                 mapRole.put(mUserMenu.getMenu().getCode(), mUserMenu.getMenu());
             }
@@ -194,12 +200,18 @@ public final class DashboardMenu extends CustomComponent {
 //                });
 //                menuItemComponent = reports;
 //            }
-            if (view == DashboardViewType.DASHBOARD) {
-                notificationsBadge = new Label();
-                notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
-                menuItemComponent = buildBadgeWrapper(menuItemComponent,
-                        notificationsBadge);
-            }
+//            if (view == DashboardViewType.DASHBOARD) {
+//                notificationsBadge = new Label();
+//                notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
+//                menuItemComponent = buildBadgeWrapper(menuItemComponent,
+//                        notificationsBadge);
+//            }
+//            if (view == DashboardViewType.ORGANIZATION_MNGT) {
+//                notificationsBadge = new Label();
+//                notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
+//                menuItemComponent = buildBadgeWrapper(menuItemComponent,
+//                        notificationsBadge);
+//            }
 //            if (view == DashboardViewType.REPORTS) {
 //                reportsBadge = new Label();
 //                reportsBadge.setId(REPORTS_BADGE_ID);
@@ -221,12 +233,18 @@ public final class DashboardMenu extends CustomComponent {
                         for (DashboardViewType subMenu : lstSubMenu) {
                             if (mapRole.get(subMenu.getViewName()) != null) {
                                 Component child = new ValoMenuItemButton(subMenu);
-                                subMenuContent.addComponent(child);
+                                if ("taskPersonalMngt".equals(subMenu.getViewName())) {
+                                    notificationsBadge = new Label();
+                                    notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
+                                    menuItemComponent = buildBadgeWrapper(child,
+                                            notificationsBadge);
+                                    subMenuContent.addComponent(menuItemComponent);
+                                } else {
+
+                                    subMenuContent.addComponent(child);
+                                }
                             }
                         }
-                        menuItemsLayout.addComponent(parent);
-                        menuItemsLayout.addComponent(subMenuContent);
-                        subMenuContent.setVisible(false);
                         parent.addClickListener(new ClickListener() {
 
                             @Override
@@ -240,6 +258,10 @@ public final class DashboardMenu extends CustomComponent {
                                 }
                             }
                         });
+                        menuItemsLayout.addComponent(parent);
+                        menuItemsLayout.addComponent(subMenuContent);
+                        subMenuContent.setVisible(false);
+
                     } else {
                         menuItemsLayout.addComponent(menuItemComponent);
                     }
@@ -266,7 +288,14 @@ public final class DashboardMenu extends CustomComponent {
     @Override
     public void attach() {
         super.attach();
-        updateNotificationsCount(null);
+        int taskCount = 0;
+        try {
+            List<CTask> tasks = TaskOrgMngService.getInstance().getListTaskPersonal(String.valueOf(user.getId()), String.valueOf(user.getDepartment().getId()));
+            taskCount = tasks.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        updateNotificationsCount(new NotificationsCountUpdatedEvent(taskCount));
     }
 
     @Subscribe
@@ -278,12 +307,21 @@ public final class DashboardMenu extends CustomComponent {
     @Subscribe
     public void updateNotificationsCount(
             final NotificationsCountUpdatedEvent event) {
-        int unreadNotificationsCount = DashboardUI.getDataProvider()
-                .getUnreadNotificationsCount();
+//        int unreadNotificationsCount = DashboardUI.getDataProvider()
+//                .getUnreadNotificationsCount();
+        int unreadNotificationsCount = (event == null ? 0 : event.getCount());
         notificationsBadge.setValue(String.valueOf(unreadNotificationsCount));
         notificationsBadge.setVisible(unreadNotificationsCount > 0);
     }
 
+//    @Subscribe
+//    public void updateNotificationsTaskCount(
+//            final NotificationsCountUpdatedEvent event) {
+//        int unreadNotificationsCount = DashboardUI.getDataProvider()
+//                .getUnreadNotificationsCount();
+//        notificationsTask.setValue(String.valueOf(unreadNotificationsCount));
+//        notificationsTask.setVisible(unreadNotificationsCount > 0);
+//    }
     @Subscribe
     public void updateReportsCount(final ReportsCountUpdatedEvent event) {
         reportsBadge.setValue(String.valueOf(event.getCount()));

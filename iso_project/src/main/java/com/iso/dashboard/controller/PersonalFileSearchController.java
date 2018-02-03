@@ -146,16 +146,19 @@ public class PersonalFileSearchController {
             }
         };
         pagedTable.getColumn("procedureName").setRenderer(new ButtonRenderer(nameClickListener));
+        pagedTable.getColumn("code").setRenderer(new ButtonRenderer(nameClickListener));
 
     }
 
     public IndexedContainer createContainer(List<PProcess> lstProcess) {
         IndexedContainer container = new IndexedContainer();
+        container.addContainerProperty("code", String.class, null);
         container.addContainerProperty("procedureName", String.class, null);
         container.addContainerProperty("createTime", String.class, null);
         container.addContainerProperty("level", String.class, null);
         for (PProcess u : lstProcess) {
             Item item = container.addItem(u);
+            item.getItemProperty("code").setValue(u.getCode());
             item.getItemProperty("procedureName").setValue(u.getProcedureName());
             item.getItemProperty("level").setValue(u.getLevel());
             item.getItemProperty("createTime").setValue(sp.format(u.getCreatedTime()));
@@ -224,11 +227,11 @@ public class PersonalFileSearchController {
 //    }
 //    
     private void onSearch() {
-        
+
         reloadData(getListData());
     }
-    
-    private List<PProcess> getListData(){
+
+    private List<PProcess> getListData() {
         PProcess searchDto = new PProcess();
         searchDto.setProcedureName(view.getTxtName().getValue());
         List<PProcess> lstProcess = ProcessService.getInstance().listPProcess(searchDto);
@@ -239,7 +242,7 @@ public class PersonalFileSearchController {
         CProcedure procedure = ProcedureMngtService.getInstance().getProcedureById(String.valueOf(dtoProcess.getProcedureId()));
         procedure.setProcessDto(dtoProcess);
         PersonalSendFileMngtUI ui = new PersonalSendFileMngtUI(
-                BundleUtils.getString("procedureMngt.public.list.sendFile"), procedure, false);
+                BundleUtils.getString("procedureMngt.public.list.infoDetail"), procedure, false);
         ui.getTxtName().setValue(procedure.getName());
         ui.getTxtLevel().setValue(procedure.getLevel());
         ui.getTxtCost().setValue(procedure.getCost());

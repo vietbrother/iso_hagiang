@@ -49,6 +49,7 @@ public class PersonalFileInfoView extends Panel implements View {
         setSizeFull();
 
         VerticalLayout root = new VerticalLayout();
+        root.setCaption(BundleUtils.getStringCas("menu.fileInfoMngt"));
         root.setSizeFull();
         root.setSpacing(false);
         root.addStyleName("dashboard-view");

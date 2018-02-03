@@ -10,6 +10,8 @@ import com.iso.dashboard.dto.CTask;
 import com.iso.dashboard.dto.CTaskAssignee;
 import com.iso.dashboard.dto.CTaskAssigneePK;
 import com.iso.dashboard.dto.Employee;
+import com.iso.dashboard.event.DashboardEvent;
+import com.iso.dashboard.event.DashboardEventBus;
 import com.iso.dashboard.service.EmployeeMngtService;
 import com.iso.dashboard.service.TaskAssigneeService;
 import com.iso.dashboard.service.TaskOrgMngService;
@@ -20,6 +22,8 @@ import com.iso.dashboard.utils.BundleUtils;
 import com.iso.dashboard.utils.Constants;
 import com.iso.dashboard.utils.DataUtil;
 import com.iso.dashboard.utils.ISOIcons;
+import com.iso.dashboard.view.DashboardMenu;
+import static com.iso.dashboard.view.DashboardMenu.user;
 import com.iso.dashboard.view.TaskAssignView;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
@@ -178,6 +182,13 @@ public class TaskAssignController {
             if (cTask != null && (cTask.getStatus() == null || cTask.getStatus() == 1)) {
                 cTask.setStatus(2);
                 TaskOrgMngService.getInstance().updateTaskOrg(cTask);
+            }
+            try {
+                List<CTask> tasks = TaskOrgMngService.getInstance().getListTaskPersonal(String.valueOf(user.getId()), String.valueOf(user.getDepartment().getId()));
+                int taskCount = tasks.size();
+                DashboardEventBus.post(new DashboardEvent.NotificationsCountUpdatedEvent(taskCount));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             window.close();
         });

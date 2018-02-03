@@ -8,6 +8,8 @@ package com.iso.dashboard.service;
 import com.iso.dashboard.dao.TaskOrgDAO;
 import com.iso.dashboard.dto.ResultDTO;
 import com.iso.dashboard.dto.CTask;
+import com.iso.dashboard.dto.CTaskAssignee;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,8 +55,27 @@ public class TaskOrgMngService {
     public List<CTask> listTaskOrg(CTask task) {
         return TaskOrgDAO.getInstance().listTaskOrg(task);
     }
-    
-    public List<CTask> getTasksByName(String taskName, String departmentId){
+
+    public List<CTask> getTasksByName(String taskName, String departmentId) {
         return TaskOrgDAO.getInstance().listTaskByName(taskName, departmentId);
+    }
+
+    public List<CTask> getListTaskPersonal(String userId, String departmentId) {
+        List<Integer> lstTaskId = new ArrayList<>();
+        List<CTaskAssignee> lstAssignees = TaskAssigneeService.getInstance().listTaskAssignee(null, userId);
+        if (lstAssignees != null && !lstAssignees.isEmpty()) {
+            lstAssignees.stream().forEach((assignee) -> {
+                lstTaskId.add(assignee.getId().getTaskId());
+            });
+        }
+
+        List<CTask> cTasks = TaskOrgDAO.getInstance().listTaskByName("", departmentId);
+        List<CTask> cTasksPersonal = new ArrayList<>();
+        for (CTask u : cTasks) {
+            if (lstTaskId.contains(u.getTaskId())) {
+                cTasksPersonal.add(u);
+            }
+        }
+        return cTasksPersonal;
     }
 }

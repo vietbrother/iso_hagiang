@@ -154,6 +154,6 @@ public abstract class DummyDataGenerator {
 
     public static Color[] chartColors = new Color[] {
             Color.YELLOW, Color.YELLOW,
-            Color.YELLOW, Color.YELLOW,
-            Color.YELLOW, Color.YELLOW};
+            Color.GREEN, Color.GREEN,
+            Color.BLUE, Color.RED};
 }

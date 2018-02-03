@@ -43,7 +43,7 @@ public class ProcessDAO extends BaseDAO {
                 sql += (DataUtil.isNullOrEmpty(dto.getFlowId()) ? "" : (" AND u.flowId = ? "));
             }
 
-            sql += "ORDER BY u.name ";
+            sql += "ORDER BY u.createdTime desc, u.code, u.procedureName ";
             Query query = session.createQuery(sql);
             int i = 0;
             if (!DataUtil.isNullOrEmpty(dto)) {
