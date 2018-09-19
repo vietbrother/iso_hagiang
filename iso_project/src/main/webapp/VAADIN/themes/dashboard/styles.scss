@@ -1533,9 +1533,10 @@
 }
 
 .header-banner-style {
-    /*background-color: #0c508b;//#f6e6a2;*/
-    /*background-color: #428bca;/*#0044cc;/*#2e69ea;#0c508b;*/
-    background-color: #205081;/*#0044cc;/*#2e69ea;#0c508b;/*#428bca*/
+    //background-color: #205081;
+    background: rgba(0,0,0,0) url("img/bg_header.png") no-repeat;
+    background-size: auto auto;
+    background-size: cover;
 }
 
 .v-image-image-header {
@@ -1548,10 +1549,56 @@
     margin-bottom: auto;
     margin-left: 12%;
 }
-
+.v-image-image-header-logo {
+    width: 55px !important;
+    height: 55px !important;
+    border-radius: 29px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+    display: block;
+    margin-top: 0.45em;
+    margin-bottom: auto;
+    margin-left: 50%;
+}
+.v-image-image-logo {
+    width: 190px !important;
+    height: 59px !important;
+    border-radius: 29px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: auto;
+    margin-left: 7%;
+}
+.login-register-layout{
+    margin-top: 1.2em;
+}
+.text-logo-homepage {
+    color: #34B0F2;
+    font-size: 15px;
+    font-weight: bold !important;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    margin-top: 0.95em;
+    margin-left: 3%;
+    word-wrap: break-word;
+    width: 12em !important;
+}
+.hotline {
+    background: rgba(0,0,0,0) url("img/icon_hotline.png") no-repeat scroll 0 center;
+    color: white;
+    height: 50px;
+    padding-left: 55px;
+    font-family: 'Roboto-Medium';
+    float: left;
+    margin-top: 0.6em;
+    font-weight: bold;
+}
+.hotline > span {
+    color: #f93;
+    font-family: "Roboto-Bold";
+    font-size: 22px;
+}
 .text-logo {
-    /*color: #FFFFFF;/*#fee6a1;*/
-    /*color: #006f81;*/
     color: #F2BA34;
     font-size: 26px;
     font-weight: bold;
@@ -1561,7 +1608,7 @@
     margin-left: -4.5em;
 }
 .dashboard .valo-menu-item:hover{
-/*    background-color: blue;*/
+    /*    background-color: blue;*/
     background-color: #2E69EA;
 }
 
@@ -1749,4 +1796,14 @@
     margin-top: 2px;
     color: #197de1 !important;
     box-shadow: none !important;
+}
+.dashboard .v-menubar-home > .v-menubar-menuitem:hover {
+    zoom: 1;
+    background-color: #0099cc;
+}
+
+.dashboard .v-menubar-home > .v-menubar-menuitem {
+    font-weight: bold !important;
+    background-color: #205081;//#003366;
+    color: white !important;
 }

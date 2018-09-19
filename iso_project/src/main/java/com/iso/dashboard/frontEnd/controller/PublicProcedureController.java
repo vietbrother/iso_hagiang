@@ -30,6 +30,7 @@ import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -69,7 +70,7 @@ public class PublicProcedureController {
 
     public PublicProcedureController(PublicProcedureView view) {
         this.view = view;
-        this.pagedTable = view.getPagedTable();
+        this.pagedTable = view.getProcedurePage().getPagedTable();
         initTable(ProcedureMngtService.getInstance().listProcedures(null));
         doAction();
     }
@@ -81,7 +82,7 @@ public class PublicProcedureController {
             @Override
             public void actionEdit(Object obj) {
                 onUpdate((CProcedure) obj);
-                view.getBtnSearch().click();
+                view.getProcedurePage().getBtnSearch().click();
             }
 
             @Override
@@ -100,7 +101,7 @@ public class PublicProcedureController {
                                     CProcedure procedure = (CProcedure) obj;
                                     ResultDTO res = ProcedureMngtService.getInstance().removeProcedure(String.valueOf(procedure.getId()));
                                     ComponentUtils.showNotification("Delete id : " + String.valueOf(procedure.getId()) + " " + res.getKey() + " " + res.getMessage());
-                                    view.getBtnSearch().click();
+                                    view.getProcedurePage().getBtnSearch().click();
                                 }
                             }
                         });
@@ -172,7 +173,7 @@ public class PublicProcedureController {
         });
         pagedTable.getColumn("level").setMaximumWidth(250);
         pagedTable.getColumn("level").setMinimumWidth(150);
-        
+
         pagedTable.getColumn("type").setRenderer(new HtmlRenderer(), new Converter<String, String>() {
 
             @Override
@@ -232,7 +233,7 @@ public class PublicProcedureController {
         });
         pagedTable.getColumn("type").setMaximumWidth(250);
         pagedTable.getColumn("type").setMinimumWidth(150);
-        
+
         pagedTable.getColumn("view").setWidth(120);
         pagedTable.getColumn("view").setHeaderCaption(BundleUtils.getString("common.button.info"));
 
@@ -246,6 +247,7 @@ public class PublicProcedureController {
             }
         };
         pagedTable.getColumn("name").setRenderer(new ButtonRenderer(nameClickListener));
+        pagedTable.setSelectionMode(Grid.SelectionMode.NONE);
     }
 
     public IndexedContainer createContainer(List<CProcedure> lstProcedure) {
@@ -267,7 +269,7 @@ public class PublicProcedureController {
     }
 
     private void doAction() {
-        view.getBtnSearch().addClickListener(new Button.ClickListener() {
+        view.getProcedurePage().getBtnSearch().addClickListener(new Button.ClickListener() {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -275,7 +277,7 @@ public class PublicProcedureController {
             }
         });
 
-        view.getBtnAdd().addClickListener(new Button.ClickListener() {
+        view.getProcedurePage().getBtnAdd().addClickListener(new Button.ClickListener() {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -283,7 +285,7 @@ public class PublicProcedureController {
             }
         });
 
-        view.getBtnExport().addClickListener(new Button.ClickListener() {
+        view.getProcedurePage().getBtnExport().addClickListener(new Button.ClickListener() {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -330,14 +332,14 @@ public class PublicProcedureController {
     }
 
     private void onSearch() {
-        List<CProcedure> lstProcedure = ProcedureMngtService.getInstance().listProcedures(view.getTxtName().getValue());
+        List<CProcedure> lstProcedure = ProcedureMngtService.getInstance().listProcedures(view.getProcedurePage().getTxtName().getValue());
         reloadData(lstProcedure);
     }
 
     private void onExport() {
 
         try {
-            List<CProcedure> lstProcedure = ProcedureMngtService.getInstance().listProcedures(view.getTxtName().getValue());
+            List<CProcedure> lstProcedure = ProcedureMngtService.getInstance().listProcedures(view.getProcedurePage().getTxtName().getValue());
             String[] header = new String[]{"procedurename", "birthDay", "email"};
             String[] align = new String[]{"LEFT", "LEFT", "LEFT"};
             List<AbstractMap.SimpleEntry<String, String>> headerAlign = new ArrayList<AbstractMap.SimpleEntry<String, String>>();

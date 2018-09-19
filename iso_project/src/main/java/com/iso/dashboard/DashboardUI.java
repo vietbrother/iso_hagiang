@@ -98,6 +98,7 @@ public final class DashboardUI extends UI {
                 VerticalLayout ver = new VerticalLayout();
                 ver.setSizeFull();
                 BannerView banner = new BannerView();
+                banner.getLoginRegisterLayout().setVisible(false);
                 MainView main = new MainView();
                 ver.addComponents(banner);
                 ver.setExpandRatio(banner, 1f);
